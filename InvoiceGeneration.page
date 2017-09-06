@@ -1,0 +1,115 @@
+<apex:page standardController="Invoice__c" extensions="InvoiceExtension" renderAs="PDF">
+
+<apex:form styleclass="borderClass" style="border:1px solid blue;">
+<apex:stylesheet value="{!URLFOR($Resource.Bestpractice2CSS)}"/>	
+<apex:pageBlock >
+<table>
+<tr>
+<td>
+<apex:outputLabel value="{!$Label.Company_Name}"/><br/>
+<apex:outputLabel value="{!$Label.Street_Address}"/><br/>
+<apex:outputLabel value="{!$Label.City}"/><br/>
+<apex:outputLabel value="{!$Label.ZIP}"/><br/>
+<apex:outputLabel value="{!$Label.Phone}"/><br/>
+</td>
+</tr>
+</table>
+
+<h3 class="invoiceLabel"><apex:outputLabel value="{!$Label.Invoice}"/></h3>
+<table align="right">
+<tr>
+<td class="columnSpacing">
+           <apex:dataTable value="{!Invoice__c}" var="v" id="theTable"  headerClass="tableheadcolor3" border="1" rowClasses="odd,even" columnsWidth="100px, 100px">
+             <apex:column styleclass="tablehead"> 
+                 <apex:facet name="header" >Invoice#</apex:facet>
+                 <apex:outputText value="{!v.Invoice__c}"/>
+             </apex:column>
+             
+             <apex:column styleclass="tablehead"> 
+                 <apex:facet name="header">Date</apex:facet>
+                 <apex:outputText value="{!v.Date__c}"/>
+             </apex:column>                        
+ </apex:dataTable>
+ </td>
+ </tr>
+ </table>
+ 
+<table>
+<br/>
+ <br/> 
+ <br/>
+</table>
+
+ <tr>
+     <td>
+         <apex:dataTable value="{!Invoice__c}" var="l" headerClass="tableheadcolor3">
+          <apex:column styleclass="Lineitem"> 
+          <h1><apex:facet name="header">LineItem:</apex:facet></h1>
+           <apex:outputText value="{!l.InvoiceLineItem__r.LineItem_Name__c}"/><br/> 
+           </apex:column>
+          </apex:dataTable>
+     </td>
+ </tr>
+ 
+ <table>
+<br/>
+ <br/> 
+ <br/>
+</table>
+
+ <tr>
+     <td>
+         <apex:dataTable value="{!Invoice__c}" var="c" headerClass="tableheadcolor3">
+             <apex:column styleclass="billToHead"> 
+                 <h1><apex:facet name="header">Bill To:</apex:facet></h1>
+                 <apex:outputText value="{!c.ContactInvoice__r.Name}"/><br/>               
+                 <apex:outputText value="{!c.ContactInvoice__r.Account.BillingStreet}"/><br/>
+                 <apex:outputText value="{!c.ContactInvoice__r.Account.BillingCity}"/>
+                 <apex:outputText value="{!c.ContactInvoice__r.Account.BillingState}"/>
+                 <apex:outputText value="{!c.ContactInvoice__r.Account.BillingPostalCode}"/><br/>
+                 <apex:outputText value="{!c.ContactInvoice__r.Account.Phone }"/>
+                 <apex:outputText value="{!c.ContactInvoice__r.Email}"/><br/>               
+             </apex:column>
+          </apex:dataTable>
+     </td>
+ </tr>
+ 
+ <table>
+<br/>
+ <br/> 
+ <br/>
+</table>
+
+<table align="center">
+ <tr>
+     <td>
+        <apex:dataTable value="{!mapExpenses}" var="k" headerClass="tableheadcolor3" border="1" columnsWidth="90%,70%">
+             <apex:column style="cellspacing:30px;" styleclass="tablehead"> 
+                 <apex:facet name="header">Description</apex:facet>
+                 <apex:outputText value="{!k}"/>
+             </apex:column>
+             <apex:column styleclass="tablehead"> 
+                 <apex:facet name="header">Amount</apex:facet>
+                 <apex:outputText value="{!mapExpenses[k]}"/>
+             </apex:column>
+          </apex:dataTable>
+     </td>
+ </tr>
+ </table>
+ 
+ 
+ <table>
+ <br/>
+ <br/>
+ </table>
+ 
+ <div align="center" class="f">
+ <apex:pageBlock >
+    <apex:outputLabel styleclass="footer" value="{!$Label.footer1}"/><br/>
+    <apex:outputLabel styleclass="footer" value="{!$Label.footer2}"/><br/>
+</apex:pageBlock>
+</div>
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>
