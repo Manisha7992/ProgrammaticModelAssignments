@@ -1,0 +1,65 @@
+<apex:page standardController="Account" extensions="DisplayAccountsExtension">
+
+ <apex:pageBlock title="Account" >
+ <apex:form >
+ 
+ <apex:pageBlockTable value="{!acclist}" var="account">
+ <apex:column > 
+ <apex:facet name="header">Account Name</apex:facet> 
+     <apex:commandLink value="{!account.Name}" action="{!contactdetails}" rerender="detail">
+     <apex:param value="{!account.id}" name="{!account.id}" assignTo="{!recid}"/>
+	<!-- <apex:outputText value="{!account.name}"/>  --> 
+	</apex:commandLink>
+</apex:column>
+
+ <apex:column > 
+	<apex:facet name="header">Account PhoneNumber</apex:facet> 
+	<apex:outputText value="{!account.phone}"/> 
+ </apex:column> 
+ 
+ <apex:column > 
+	<apex:facet name="header">Account Number</apex:facet> 
+	<apex:outputText value="{!account.AccountNumber}"/> 
+ </apex:column> 
+ 
+  <apex:column > 
+	<apex:facet name="header">Account BillingStreet</apex:facet> 
+	<apex:outputText value="{!account.billingstreet}"/> 
+ </apex:column> 
+ 
+  <apex:column > 
+	<apex:facet name="header">Account BillingPostalCode</apex:facet> 
+	<apex:outputText value="{!account.billingPostalCode}"/> 
+ </apex:column> 
+ 
+ <apex:column > 
+	<apex:facet name="header">Account BillingCity</apex:facet> 
+	<apex:outputText value="{!account.billingCity}"/> 
+ </apex:column>
+   
+ <apex:column > 
+	<apex:facet name="header">Account BillingCountry</apex:facet> 
+	<apex:outputText value="{!account.billingCountry}"/> 
+ </apex:column> 
+
+ </apex:pageBlockTable>
+ 
+ <apex:outputPanel id="detail">
+ <apex:pageBlockTable value="{!contactlist}" var="c">
+<apex:column > 
+<apex:facet name="header">Contact Name</apex:facet> 
+	<apex:outputText value="{!c.Name}"/>
+</apex:column>
+</apex:pageBlockTable>
+
+<apex:pageBlockTable value="{!opplist}" var="o">
+<apex:column > 
+<apex:facet name="header">Opportunity Name</apex:facet> 
+	<apex:outputText value="{!o.Name}"/>
+</apex:column>
+</apex:pageBlockTable>
+</apex:outputPanel>
+ 
+ </apex:form>
+ </apex:pageBlock>
+ </apex:page>
