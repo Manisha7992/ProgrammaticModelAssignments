@@ -1,0 +1,71 @@
+<apex:page standardController="Account"  extensions="Searchclass">  
+  <apex:form > 
+  
+  <apex:pageBlock >
+      <apex:pageBlockSection columns="1">
+          <apex:pageBlockSectionItem >
+              <label>Search</label>
+              <apex:outputPanel >
+                  <apex:inputText value="{!searchstring}" label="Input"/>
+                  <apex:commandButton value="Search records" action="{!searchsosl}" reRender="oppyPgId,accPgId,leaPgId,conPgId" status="ajaxId"/>
+                  <!-- Ajaxmethod is processing the search -->
+                  &nbsp;<apex:actionStatus startText="Searching..." id="ajaxId"></apex:actionStatus>
+              </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+     
+   <apex:outputPanel id="accPgId">  
+   <apex:pageBlock title="Search Account Result" rendered="{!IF(AND(NOT(ISBLANK(acc)),acc.size>0),TRUE,FALSE)}">  
+    <apex:pageblockTable value="{!acc}" var="a" >       
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!a.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Id" >  
+       <apex:outputlink >{!a.Id}</apex:outputlink>
+     </apex:column>  
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+   </apex:outputPanel>
+
+     <apex:outputPanel id="conPgId">
+    <apex:pageBlock title="Search Contact Result" rendered="{!IF(AND(NOT(ISBLANK(con)),con.size>0),TRUE,FALSE)}">  
+    <apex:pageblockTable value="{!con}" var="c">     
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!c.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Id" >  
+       <apex:outputlink >{!c.Id}</apex:outputlink>
+     </apex:column>  
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+   </apex:outputPanel>
+   
+    <apex:outputPanel id="leaPgId">
+    <apex:pageBlock title="Search Lead Result" rendered="{!IF(AND(NOT(ISBLANK(lea)),lea.size>0),TRUE,FALSE)}" >  
+    <apex:pageblockTable value="{!lea}" var="l">      
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!l.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Id" >  
+       <apex:outputlink >{!l.Id}</apex:outputlink>
+     </apex:column> 
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+   </apex:outputPanel>
+   
+   <apex:outputPanel id="oppyPgId">
+    <apex:pageBlock title="Search Opportunity Result" rendered="{!IF(AND(NOT(ISBLANK(opty)),opty.size>0),TRUE,FALSE)}" >  
+    <apex:pageblockTable value="{!opty}" var="o" >   
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!o.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Id" >  
+       <apex:outputlink >{!o.Id}</apex:outputlink>
+     </apex:column>    
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+   </apex:outputPanel>
+   
+  </apex:form>  
+ </apex:page>
