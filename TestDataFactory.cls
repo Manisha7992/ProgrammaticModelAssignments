@@ -28,7 +28,7 @@ public static List<Lead> createLeads(Integer numOfLeads)
 		Lead leadInstance;
 		for(Integer i=1;i<=numOfLeads;i++)
 		{
-			leadInstance=new Lead(LastName='LeadTest'+String.valueOf(i),Company='Eternus',Status='Open-Contacted',Phone='123');
+			leadInstance=new Lead(LastName='LeadTest'+String.valueOf(i),FirstName='Mr',Email='lt@gmail.com',Company='Eternus',Status='Open-Contacted',Phone='123');
 			leadlist.add(leadInstance);
 			System.debug(leadInstance);
 		}
@@ -39,16 +39,15 @@ public static List<Lead> createLeads(Integer numOfLeads)
     
      public static List<Account> createAccounts(Integer numOfAccounts)
     {
-    	//Prepare the account list
     	List<Account> acclist=new List<Account>();
     	Account acc;
     	
     	for(Integer i=1;i<=numOfAccounts;i++)
 		{
-			acc=new Account(Name='TestAccount'+String.valueOf(i),AccountNumber='AC-00000'+String.valueOf(i));
+			acc=new Account(Name='TestAccount'+String.valueOf(i),Type='Prospect',EmailAddress__c='xyz@espl.com',AccountNumber='AC-00000'+String.valueOf(i),Domain__c='espl.com');
 			acclist.add(acc);
 		}
-		//insert acclist;
+		insert acclist;
 		return acclist;
     }
     
@@ -84,13 +83,13 @@ public static List<Case> createCases(Integer numOfcases)
         
     }
     
-    public static List<Contact> createContacts(Integer numOfcontacts, String email) 
+    public static List<Contact> createContacts(Integer numOfcontacts, String email,Id AccId) 
     {
     	List<Contact> contactlist=new List<Contact>();
 		Contact contacts;
 		for(Integer i=1;i<=numOfcontacts;i++)
 		{
-			contacts=new Contact(LastName='Contact'+i,Email=email);
+			contacts=new Contact(LastName='Contact'+i,Email=email,AccountID=AccId);
 			contactlist.add(contacts);
 		}
 		System.debug(contactlist);
@@ -98,6 +97,20 @@ public static List<Case> createCases(Integer numOfcases)
         
     }
     
+   public static List<Opportunity> createOpportunities(Integer numOfopportunities) 
+    {
+       List<Opportunity> Opplist=new List<Opportunity>();
+        Opportunity opportunities;
+        for(Integer i=1;i<=numOfopportunities;i++)
+        {
+            opportunities=new Opportunity(Name='Manisha',CloseDate=System.today(),StageName='closed won'); 
+            Opplist.add(opportunities);
+        }
+        System.debug(Opplist);
+        insert Opplist;
+        return Opplist;
+        
+    }
     
     
 }
