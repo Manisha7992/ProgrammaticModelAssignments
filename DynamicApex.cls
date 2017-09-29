@@ -89,8 +89,7 @@ public class DynamicApex {
                 {
                     fields.add(fieldDescribe.getName());
                 }
-            }
-            //fields.addAll(mfields.keySet());
+            }        
             fields.sort();
             fnotselected.clear();
             fselected.clear();
@@ -110,15 +109,12 @@ public class DynamicApex {
     public void show()
     {
         fnsoptions.clear();
-        fsoptions.clear();
-        System.debug('Inside Show ::: fnotselected:::'+fnotselected);
-        System.debug('Inside Show ::: fnsoptions:::'+fnsoptions);
+        fsoptions.clear();     
         for(String s : fnotselected)
         {
             SelectOption op = new SelectOption(s,s);
             fnsoptions.add(op);
         }
-        System.debug('After Show ::: fnsoptions:::'+fnsoptions);
         for(String s : fselected)
         {
             SelectOption op = new SelectOption(s,s);
@@ -138,11 +134,8 @@ public class DynamicApex {
 /*
 * Method to remove fields from fields picklists as per the selected object and selected fields
 */
-    public void removeFields(){
-        //System.debug('fnotselected:::'+fnotselected);
-        System.debug('Rfields:::'+rfields);
-        fnotselected.addAll(rfields);
-        System.debug('fnotselected:::'+fnotselected);
+    public void removeFields(){      
+        fnotselected.addAll(rfields);      
         fselected.removeAll(rfields);
         show();
     }
@@ -155,20 +148,14 @@ public class DynamicApex {
         myFields.clear();
         myFields.addAll(fselected);
         myFields.add('Id');
-       // query = 'SELECT ';
-        //query += String.join(myFields, ',');
-        //query += ' FROM '+ selectedObj +' ORDER BY Id '+selectedOrder+' LIMIT '+ selectedLimit;
          query = 'FIND \'';
          query += searchString +'\'';
-         query += 'IN ALL FIELDS RETURNING ' + selectedObj + '('+String.join(myFields, ',')+ ' ORDER BY Id '+ selectedOrder+')' + 'LIMIT ' + selectedLimit;
-         system.debug('querystring@@@@@@@@@@'+query );
-        if(myFields.size()>1)
-        {
+         query += 'IN ALL FIELDS RETURNING ' + selectedObj + '('+String.join(myFields, ',')+ ' ORDER BY Id '+ selectedOrder+')' + 'LIMIT ' + selectedLimit;        
+         if(myFields.size()>1)
+         {
             try{
-               // mydata = Database.query(query);
                 myList = search.query(query);
-                mydata = myList[0];
-                //if(mydata.size()<1){
+                mydata = myList[0];               
                 if(mydata.size()<1){
                     ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'No records to find for query'));
                 }
