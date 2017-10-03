@@ -1,0 +1,77 @@
+<apex:page standardController="Lead" extensions="BikeDisplayController">
+
+<style type="text/css">
+  .PageBlock {                
+         font-weight:bold;        
+        }
+    </style>
+    
+<apex:form id="bi">
+<apex:pageblock title="Bike Designs" id="PageBlock">
+<apex:image value="{!URLFOR($Resource.Bike1)}" width="150"  height="150" >
+<apex:commandButton value="Like" action="{!details}" reRender="bi,PageBlock"/>
+<apex:commandButton value="Specifications" action="{!getbikespecifications}" reRender="bi,PageBlock,bikedetail">
+<apex:param value="0" assignTo="{!bikeparam}"/>
+</apex:commandButton>
+</apex:image>
+
+<apex:image value="{!URLFOR($Resource.Bike2)}" width="150"  height="150" >
+<apex:commandButton value="Like" action="{!details}" reRender="bi,PageBlock" />
+<apex:commandButton value="Specifications" action="{!getbikespecifications}" reRender="bi,PageBlock">
+<apex:param value="1" assignTo="{!bikeparam}"/>
+</apex:commandButton>
+</apex:image>
+
+<apex:image value="{!URLFOR($Resource.Bike3)}" width="150"  height="150" >
+<apex:commandButton value="Like" action="{!details}" reRender="bi,PageBlock,bikedetail" />
+<apex:commandButton value="Specifications" action="{!getbikespecifications}" reRender="bi,PageBlock" >
+<apex:param value="2" assignTo="{!bikeparam}"/>
+</apex:commandButton>
+</apex:image>
+
+<apex:image value="{!URLFOR($Resource.Bike4)}" width="150"  height="150" >
+<apex:commandButton value="Like" action="{!details}" reRender="bi,PageBlock,bikedetail"/>
+<apex:commandButton value="Specifications" action="{!getbikespecifications}" reRender="bi,PageBlock">
+<apex:param value="3" assignTo="{!bikeparam}"/>
+</apex:commandButton>
+<!-- <apex:outputText style="font-weight:bold;"  value="{!bike}"></apex:outputText> -->
+</apex:image>
+
+<apex:image value="{!URLFOR($Resource.Bike5)}" width="150"  height="150" >
+<apex:commandButton value="Like" action="{!details}" reRender="bi,PageBlock"/>
+<apex:commandButton value="Specifications" action="{!getbikespecifications}" reRender="bi,PageBlock,bikedetail" >
+<apex:param value="4" assignTo="{!bikeparam}"/>
+</apex:commandButton>
+</apex:image>
+</apex:pageblock>
+
+ <!--Details display section -->   
+  <apex:pageBlock rendered="{!detailssection}">
+   <apex:pageBlockSection title="Enter your details">
+     <apex:inputField value="{!Lead.FirstName}"/>   
+     <apex:inputField value="{!Lead.LastName}"/>    
+     <apex:inputField value="{!Lead.Phone}"/> 
+     <apex:inputField value="{!Lead.Email}"/>
+     <apex:inputField value="{!Lead.Company}"/>
+     <apex:inputField value="{!Lead.Description}"/>         
+     </apex:pageBlockSection>
+    <apex:pageBlockButtons >
+   <apex:commandButton value="save" action="{!save}"/>
+    </apex:pageBlockButtons>
+  </apex:pageBlock>
+  
+  <!--Bike Details display section -->   
+  <apex:pageBlock rendered="{!bikedetailssection}" id="bikedetail">
+   <apex:pageBlockSection title="Bike details">
+     <apex:outputField value="{!bike.Category__c}"/>   
+     <apex:outputField value="{!bike.Colour_Variants__c}"/>    
+     <apex:outputField value="{!bike.Fuel_Type__c}"/> 
+     <apex:outputField value="{!bike.Maximum_Speed__c}"/>
+     </apex:pageBlockSection>
+  </apex:pageBlock>   
+   
+   
+
+      
+</apex:form>
+</apex:page>
