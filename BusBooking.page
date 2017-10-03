@@ -1,6 +1,6 @@
 <apex:page standardController="Account" extensions="BusBooking">
   <style type="text/css">
-  .test {        
+  .routeTable {        
             border:8px solid black;
             background-color:#00FF00;
             font-weight:bold;
@@ -25,12 +25,12 @@
    <apex:pageBlock rendered="{!lstroutestop.size>0}">
     <apex:pageBlockSection title="Route Details">
         <apex:pageblockSectionItem >
-            <apex:pageBlockTable value="{!lstroutestop}" align="center" columnsWidth="6000px,6000px,6000px,6000px,6000px,6000px" var="route" styleClass="test">
+            <apex:pageBlockTable value="{!lstroutestop}" align="center" columnsWidth="6000px,6000px,6000px,6000px,6000px,6000px" var="route" styleClass="routeTable">
                <apex:column value="{!route.Route__r.name}"/>
                <apex:column value="{!route.Stop__r.name}"/>
                <apex:column value="{!route.Route__r.From__c}"/>
                <apex:column value="{!route.Route__r.To__c}"/> 
-               <apex:column>
+               <apex:column >
                <apex:outputText value="Tickets"></apex:outputText>
                <apex:selectList value="{!nooftickets}" multiselect="false" size="1"> 
                <apex:selectOptions value="{!ticketslist}"/> 
