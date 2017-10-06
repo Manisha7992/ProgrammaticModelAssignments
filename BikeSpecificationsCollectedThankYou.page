@@ -1,0 +1,6 @@
+<apex:page standardController="Bike_Detail__c" extensions="BikeDetailsExtension">  
+  <apex:sectionHeader title="Success" subtitle="Thank You"/>
+  <apex:form >
+  <apex:pageMessages />
+  </apex:form>
+</apex:page>
