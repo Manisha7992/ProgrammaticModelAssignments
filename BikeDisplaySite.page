@@ -1,0 +1,50 @@
+<apex:page standardController="Lead" extensions="BikeDisplaySiteExtension">
+
+ <style type="text/css">
+  .PageBlock{                
+         font-weight:bold;        
+        }
+ </style>
+    
+<apex:form id="bikeForm">
+
+<apex:pageBlock title="ENTER YOU NEW BIKE SPECIFICATIONS">         
+   <apex:commandButton value="Customer Specifications" action="{!gotoBikeDetails}"/>  
+</apex:pageBlock>
+
+<!--Details display section -->   
+  <apex:pageBlock rendered="{!detailsSection}">
+   <apex:pageBlockSection title="Enter Your Details">
+     <apex:inputField value="{!leadRecord.FirstName}"/>   
+     <apex:inputField value="{!leadRecord.LastName}"/>    
+     <apex:inputField value="{!leadRecord.Phone}"/> 
+     <apex:inputField value="{!leadRecord.Email}"/>
+     <apex:inputField value="{!leadRecord.Company}"/>
+     <apex:inputField value="{!leadRecord.Description}"/>         
+    </apex:pageBlockSection>
+    <apex:pageBlockButtons >
+      <apex:commandButton value="save" action="{!save}"/>
+    </apex:pageBlockButtons>
+  </apex:pageBlock>
+ 
+ <!--BikeSpecification display section -->  
+ <apex:pageBlock >
+  <apex:pageBlockTable value="{!listBike}" var="bike" id="bikeDisplayTable" rendered="{!bikeTableSection }">
+	<apex:column value="{!bike.Category__c}"/>
+	<apex:column value="{!bike.Colour_Variants__c}"/>
+	<apex:column value="{!bike.Fuel_Type__c}"/>
+	<apex:column value="{!bike.Maximum_Speed__c}"/>
+	<apex:column value="{!bike.Photo__c}"/>
+	<apex:column >
+	     <apex:image url="{!bike.Photo__c}"/>
+	</apex:column>
+	<apex:column >
+	   <apex:commandButton value="Like" action="{!details}" reRender="bikeForm,PageBlock,bikeDetail,bikeDisplayTable">
+	     <apex:param name="bikeIdLiked" value="{!bike.id}" assignTo="{!bikeIdLiked}"/>
+	   </apex:commandButton>
+	</apex:column>
+  </apex:pageBlockTable>
+</apex:pageBlock>
+       
+</apex:form>
+</apex:page>
