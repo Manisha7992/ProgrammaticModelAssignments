@@ -1,0 +1,16 @@
+<apex:page standardController="Lead" extensions="BikeDisplaySiteExtension">  
+  <apex:sectionHeader title="Visualforce Example" subtitle="Thank You"/>
+
+  <apex:form >
+    <apex:pageBlock title="Lead Info">
+      <apex:pageBlockSection showHeader="false" columns="2">
+        <apex:outputField value="{!Lead.firstName}" />
+        <apex:outputField value="{!Lead.lastName}" />
+        <apex:outputField value="{!Lead.email}" />
+        <apex:outputField value="{!Lead.phone}" />
+        <apex:outputField value="{!Lead.company}" />
+        <apex:outputField value="{!Lead.description}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>
