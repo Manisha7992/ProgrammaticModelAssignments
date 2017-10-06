@@ -1,0 +1,19 @@
+<apex:page standardController="Account" extensions="BookingPageController">
+  <apex:form >
+  <apex:pageMessages id="pageMsg"></apex:pageMessages>
+  
+  <!--Customer Booking details page  -->   
+   <apex:pageBlock title="Booking Details" mode="edit">   
+     <apex:pageBlockSection title="My Booking Section" columns="1">
+        <apex:inputField value="{!account.name}" label="Name"/>
+        <apex:inputField value="{!account.Phone}" label="Phone"/>
+        <apex:inputField value="{!account.EmailAddress__c}" label="Email"/> 
+        <apex:inputField value="{!account.BillingStreet}" label="Street"/>      
+     </apex:pageBlockSection>
+     <apex:pageBlockButtons location="bottom">
+       <apex:commandButton value="save" action="{!click}"/>
+     </apex:pageBlockButtons>
+   </apex:pageBlock>
+    
+  </apex:form>
+ </apex:page>
