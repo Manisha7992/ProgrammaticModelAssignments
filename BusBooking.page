@@ -1,69 +1,53 @@
-<apex:page standardController="Account" extensions="BusBooking">
+<apex:page standardController="Account" extensions="BusBookingExtension">
+
+ <!--CSS for Route Table  -->
   <style type="text/css">
   .routeTable {        
             border:8px solid black;
-            background-color:#00FF00;
             font-weight:bold;
         }
-    </style>
- 
- <!--Search section --> 
-<apex:pageMessages id="pageMsg"></apex:pageMessages> 
- <apex:form id="od">
- <apex:pageblock title="Bus Booking Form" id="PageBlock">
-   <apex:pageBlockSection title="Search Details">
-     <apex:inputField value="{!Account.House_No__c}"/>
-     <apex:inputField value="{!Account.BillingPostalCode}"/> 
-     <apex:selectList label="Stops" value="{!selectedstops}" multiselect="false" size="1"> 
-       <apex:selectOptions value="{!stoplist}"/> 
-     </apex:selectList>
-      <apex:commandButton value="GET ROUTES" action="{!getroutes}" reRender="od,pageMsg" style="width:80px;"/>
-  </apex:pageBlockSection>
- </apex:pageblock>
- 
- <!--Routes display section --> 
-   <apex:pageBlock rendered="{!lstroutestop.size>0}">
-    <apex:pageBlockSection title="Route Details">
-        <apex:pageblockSectionItem >
-            <apex:pageBlockTable value="{!lstroutestop}" align="center" columnsWidth="6000px,6000px,6000px,6000px,6000px,6000px" var="route" styleClass="routeTable">
-               <apex:column value="{!route.Route__r.name}"/>
-               <apex:column value="{!route.Stop__r.name}"/>
-               <apex:column value="{!route.Route__r.From__c}"/>
-               <apex:column value="{!route.Route__r.To__c}"/> 
-               <apex:column >
-               <apex:outputText value="Tickets"></apex:outputText>
-               <apex:selectList value="{!nooftickets}" multiselect="false" size="1"> 
-               <apex:selectOptions value="{!ticketslist}"/> 
-               </apex:selectList>
-               </apex:column>
-               <apex:column >
-               <apex:commandLink value="GO" action="{!getavailability}" reRender="od">
-               <apex:param value="{!route.Route__c}" name="{!route.Route__c}" assignTo="{!recid}" />
-               </apex:commandLink>
-               </apex:column>
-            </apex:pageBlockTable>           
-        </apex:pageblockSectionItem>
-    </apex:pageBlockSection>
-   </apex:pageBlock>  
-    
-  <!--Availability display section -->   
-      <apex:pageBlock rendered="{!availablesection}">
-       <apex:pageBlockSection title="Availability Details">
-        <apex:pageBlockSectionItem rendered="{!availablesection}">
-         <apex:commandLink value="Available" action="{!gotoBookingpage}" />
-         <apex:outputText style="font-weight:bold;"  value="{!doub}"></apex:outputText>
-        </apex:pageBlockSectionItem>            
-       </apex:pageBlockSection>
-      </apex:pageBlock>   
-       
-    <!--NonAvailability display section -->      
-      <apex:pageBlock rendered="{!notavailablesection}">
-       <apex:pageBlockSection >
-        <apex:pageBlockSectionItem >
-         <apex:commandLink value="Not Available" action="{!gotoBookingpage}"/>
-        </apex:pageBlockSectionItem>           
-       </apex:pageBlockSection>
-      </apex:pageBlock>    
-              
- </apex:form>
-</apex:page>
+  </style> 
+  
+ <apex:pageMessages id="pageMsg"></apex:pageMessages> 
+ <apex:form id="busForm">
+	 
+	 <!--Search for routes using he postal code entered --> 
+	 <apex:pageblock title="Bus Booking Form" id="PageBlock">
+	   <apex:pageBlockSection title="Search Details" columns="1">
+	     <apex:inputField value="{!Account.House_No__c}"/>
+	     <apex:inputField value="{!Account.BillingPostalCode}" label="Postal Code"/>     
+	     <apex:selectList id="stops" label="Stops" size="1" value="{!schoolStops}" >
+	       <apex:selectOptions value="{!SchoolStopsSelectList}"/>
+	     </apex:selectList>
+	     </apex:pageBlockSection>
+	     <apex:pageBlockButtons location="bottom">
+	     <apex:commandButton value="GET ROUTES" action="{!getRoutes}" reRender="busForm,pageMsg" style="width:100px;"/>
+	  </apex:pageBlockButtons>
+	 </apex:pageblock>
+	 
+   <!--Routes display section based on postal code --> 
+	  <apex:pageBlock rendered="{!routeStopList.size>0}">
+	  <apex:pageBlockSection title="Route Details">
+	    <apex:pageblockSectionItem >
+	     <apex:pageBlockTable value="{!routeStopList}" align="center" columnsWidth="6000%,6000%,6000%,6000%,6000%,6000%" var="route" styleClass="routeTable">
+	        <apex:column value="{!route.Route__r.name}"/>
+	        <apex:column value="{!route.Stop__r.name}"/>
+	        <apex:column value="{!route.Route__r.From__c}"/>
+	        <apex:column value="{!route.Route__r.To__c}"/> 
+	        <apex:column headerValue="Tickets">		           
+			  <apex:selectList value="{!noOfTickets}" multiselect="false" size="1"> 
+			    <apex:selectOptions value="{!ticketsList}"/> 
+			  </apex:selectList>
+	        </apex:column>
+	        <apex:column headerValue="Action">
+		      <apex:commandLink value="GO" action="{!getAvailability}" >
+		        <apex:param value="{!route.Route__c}" name="{!route.Route__c}" assignTo="{!recordId}" />
+		      </apex:commandLink>
+	        </apex:column>
+	      </apex:pageBlockTable>           
+	    </apex:pageblockSectionItem>
+	   </apex:pageBlockSection>
+	  </apex:pageBlock>  
+	            
+  </apex:form>
+ </apex:page>
