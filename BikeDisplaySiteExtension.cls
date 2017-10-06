@@ -11,8 +11,7 @@ public with sharing class BikeDisplaySiteExtension {
 	   leadRecord = (Lead)controller.getRecord();
 	   bikeTableSection = true;
 	   detailsSection=false;
-	   listBike=[Select Category__c,Colour_Variants__c,Photo__c,Fuel_Type__c,Maximum_Speed__c 
-	             FROM Bike_Detail__c limit 10000];    
+	   listBike=[Select Category__c,Colour_Variants__c,Photo__c,Fuel_Type__c,Maximum_Speed__c FROM Bike_Detail__c limit 10000];    
      }
 
 /**Section to be displayed onclick of Like button**/
