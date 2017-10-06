@@ -1,6 +1,7 @@
 @isTest
 private class TestInvoiceForBikeExtension {
-	   
+	
+   
    /**Testmethod for invoice generation**/
     public static testmethod void createAndInsertInvoices()
    {
@@ -29,7 +30,7 @@ private class TestInvoiceForBikeExtension {
        insert invoice;
        Decimal subTotal=invoice.Consultation_Charges__c + invoice.Design_Charges__c;
        Decimal GST=subTotal*0.05;
-       Decimal Total= subTotal + GST;      
+       Decimal Total= subTotal + GST;
        test.startTest();
        ApexPages.StandardController stdController = new ApexPages.StandardController(invoice);
        InvoiceForBikeExtension invoiceForBike = new InvoiceForBikeExtension(stdController);
@@ -42,7 +43,7 @@ private class TestInvoiceForBikeExtension {
    }
  
    
-    /**Testmethod for mail**/
+ /**Testmethod for mail**/
   	 public static testMethod void testPdfEmailer()
      {    
 	    Invoice__c invoice = InvoiceFactory.createInvoices();
