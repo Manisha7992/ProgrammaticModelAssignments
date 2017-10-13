@@ -1,0 +1,76 @@
+<apex:page standardController="Account"  extensions="SearchOnMultipleObjectsExtension">  
+  <apex:form > 
+
+<!--Page block section to perform search--> 
+   <apex:pageBlock >
+      <apex:pageBlockSection columns="1">
+          <apex:pageBlockSectionItem >
+              <label>Search</label>
+              <apex:outputPanel >
+                  <apex:inputText value="{!searchstring}" label="Input"/>
+                  <apex:commandButton value="Search records" action="{!searchsosl}" reRender="opportunityPageId,accountPageId,leadPageId,contactPageId" status="ajaxId"/>
+                  <!-- Ajax method is processing the search -->
+                  &nbsp;<apex:actionStatus startText="Searching..." id="ajaxId"></apex:actionStatus>
+              </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+   
+<!--Output panel to display searched account records-->   
+   <apex:outputPanel id="accountPageId">  
+     <apex:pageBlock title="Search Account Result" rendered="{!IF(AND(NOT(ISBLANK(accountList)),accountList.size>0),TRUE,FALSE)}">  
+       <apex:pageblockTable value="{!accountList}" var="account" >       
+         <apex:column headerValue="Name" >  
+            <apex:outputlink >{!account.Name}</apex:outputlink>
+         </apex:column> 
+         <apex:column headerValue="Id" >  
+            <apex:outputlink >{!account.Id}</apex:outputlink>
+         </apex:column>  
+       </apex:pageBlockTable>     
+     </apex:pageBlock>  
+   </apex:outputPanel>
+
+<!--Output panel to display searched contact records--> 
+   <apex:outputPanel id="contactPageId">
+     <apex:pageBlock title="Search Contact Result" rendered="{!IF(AND(NOT(ISBLANK(contactList)),contactList.size>0),TRUE,FALSE)}">  
+       <apex:pageblockTable value="{!contactList}" var="contact">     
+         <apex:column headerValue="Name" >  
+            <apex:outputlink >{!contact.Name}</apex:outputlink>
+         </apex:column> 
+        <apex:column headerValue="Id" >  
+            <apex:outputlink >{!contact.Id}</apex:outputlink>
+        </apex:column>  
+      </apex:pageBlockTable>     
+     </apex:pageBlock>  
+   </apex:outputPanel>
+  
+<!--Output panel to display searched lead records-->  
+   <apex:outputPanel id="leadPageId">
+    <apex:pageBlock title="Search Lead Result" rendered="{!IF(AND(NOT(ISBLANK(leadList)),leadList.size>0),TRUE,FALSE)}" >  
+      <apex:pageblockTable value="{!leadList}" var="lead">      
+         <apex:column headerValue="Name" >  
+           <apex:outputlink >{!lead.Name}</apex:outputlink>
+         </apex:column> 
+         <apex:column headerValue="Id" >  
+           <apex:outputlink >{!lead.Id}</apex:outputlink>
+         </apex:column> 
+       </apex:pageBlockTable>     
+     </apex:pageBlock>  
+   </apex:outputPanel>
+ 
+<!--Output panel to display searched opportunity records--> 
+   <apex:outputPanel id="opportunityPageId">
+     <apex:pageBlock title="Search Opportunity Result" rendered="{!IF(AND(NOT(ISBLANK(opportunityList)),opportunityList.size>0),TRUE,FALSE)}" >  
+       <apex:pageblockTable value="{!opportunityList}" var="opportunity" >   
+         <apex:column headerValue="Name" >  
+            <apex:outputlink >{!opportunity.Name}</apex:outputlink>
+         </apex:column> 
+         <apex:column headerValue="Id" >  
+            <apex:outputlink >{!opportunity.Id}</apex:outputlink>
+         </apex:column>    
+       </apex:pageBlockTable>     
+     </apex:pageBlock>  
+   </apex:outputPanel>
+   
+  </apex:form>  
+ </apex:page>
